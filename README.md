@@ -1,1 +1,1 @@
-# AspNetAngularTypeAhead
+# AspNetCore Angular TypeAhead
