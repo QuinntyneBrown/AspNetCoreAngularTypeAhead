@@ -10,6 +10,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   imports: [    
@@ -36,7 +37,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSelectModule,
     MatListModule,
     MatTableModule,
-    MatSnackBarModule
-  ]
+    MatSnackBarModule,
+    HeaderComponent
+  ],
+  declarations: [HeaderComponent]
 })
 export class SharedModule { }

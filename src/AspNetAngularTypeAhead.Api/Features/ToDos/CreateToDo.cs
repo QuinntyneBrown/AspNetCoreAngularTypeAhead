@@ -35,7 +35,7 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
-                var toDo = new ToDo(request.ToDo.Description);
+                var toDo = new ToDo(request.ToDo.Title, request.ToDo.Description);
 
                 await _context.ToDos.AddAsync(toDo);
 

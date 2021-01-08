@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspNetAngularTypeAhead.Api.Migrations
 {
     [DbContext(typeof(AspNetAngularTypeAheadDbContext))]
-    [Migration("20210108041540_InitialCreate")]
+    [Migration("20210108045122_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,9 @@ namespace AspNetAngularTypeAhead.Api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ToDoId");
