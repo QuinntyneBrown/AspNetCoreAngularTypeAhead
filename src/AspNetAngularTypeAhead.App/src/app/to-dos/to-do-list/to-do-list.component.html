@@ -20,7 +20,9 @@
   
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element"></td>
+      <td mat-cell *matCellDef="let element">
+        <a (click)="complete(element.toDoId)">Complete</a>
+      </td>
     </ng-container>
   
 

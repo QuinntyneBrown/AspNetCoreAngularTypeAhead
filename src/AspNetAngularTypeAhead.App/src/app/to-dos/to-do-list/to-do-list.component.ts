@@ -18,9 +18,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
 
   private readonly _destroyed: Subject<void> = new Subject();
   
-  public toDos$: BehaviorSubject<ToDo[]> = new BehaviorSubject([] as ToDo[]);
-
-  dataSource: MatTableDataSource<ToDo> = new MatTableDataSource([] as ToDo[]);
+  public dataSource: MatTableDataSource<ToDo> = new MatTableDataSource([] as ToDo[]);
 
   public displayedColumns:string[] = [
     "title",
@@ -33,7 +31,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this._toDosService.get()
     .pipe(
       takeUntil(this._destroyed),
-      tap(x => this.toDos$.next(x))
+      tap(x => this.dataSource = new MatTableDataSource(x))
     ).subscribe();
   }
 

@@ -1,5 +1,5 @@
 export type ToDo = {
-    toDoId:string;
+    toDoId?:string;
     title:string;
-    description:string;
+    description?:string;
 };
