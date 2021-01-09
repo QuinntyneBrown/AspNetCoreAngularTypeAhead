@@ -1,4 +1,5 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogService } from '@shared/dialog.service';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -16,13 +17,14 @@ import { ToDosService } from '../to-dos.service';
 export class ToDoListComponent implements OnInit, OnDestroy {
 
   private readonly _destroyed: Subject<void> = new Subject();
-
+  
   public toDos$: BehaviorSubject<ToDo[]> = new BehaviorSubject([] as ToDo[]);
 
   dataSource: MatTableDataSource<ToDo> = new MatTableDataSource([] as ToDo[]);
 
   public displayedColumns:string[] = [
-    "title"
+    "title",
+    "actions"
   ];
 
   constructor(private _toDosService: ToDosService, private _dialogService: DialogService) { }
@@ -39,14 +41,13 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this._dialogService.open<CreateToDoComponent>(CreateToDoComponent);
   }
 
-  public complete() {
-    this._dialogService.open<CompleteToDoComponent>(CompleteToDoComponent);
+  public complete(toDoId:string) {    
+    const component = this._dialogService.open<CompleteToDoComponent>(CompleteToDoComponent);
+    component.toDoId = toDoId;
   }
-  
+
   ngOnDestroy(): void {
     this._destroyed.next();
     this._destroyed.complete();
   }
-
-
 }

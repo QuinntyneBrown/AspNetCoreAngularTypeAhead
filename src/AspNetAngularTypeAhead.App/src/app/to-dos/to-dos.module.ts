@@ -5,6 +5,7 @@ import { CompleteToDoComponent } from './complete-to-do/complete-to-do.component
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '@shared';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,6 +14,7 @@ import { SharedModule } from '@shared';
   imports: [
     CommonModule,
     HttpClientModule,
+    ReactiveFormsModule,
     SharedModule
   ]
 })

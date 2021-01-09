@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ToDosService } from '../to-dos.service';
 
 @Component({
   selector: 'app-complete-to-do',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompleteToDoComponent implements OnInit {
 
-  constructor() { }
+  @Input() public toDoId: string = "";
+
+  constructor(private _toDoService: ToDosService) { }
 
   ngOnInit(): void {
   }

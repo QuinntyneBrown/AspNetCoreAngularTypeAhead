@@ -1,5 +1,6 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToDosService } from '../to-dos.service';
 
 @Component({
@@ -9,10 +10,17 @@ import { ToDosService } from '../to-dos.service';
 })
 export class CreateToDoComponent implements OnInit {
 
-  constructor(private toDosService: ToDosService, private overlayRef: OverlayRef) { }
+  public form = new FormGroup({
+    title: new FormControl(null, [Validators.required])
+  });
+  
+  constructor(private toDosService: ToDosService, private _overlayRef: OverlayRef) { }
 
   ngOnInit(): void {
 
   }
 
+  cancel(): void {
+    this._overlayRef.dispose();
+  }
 }
