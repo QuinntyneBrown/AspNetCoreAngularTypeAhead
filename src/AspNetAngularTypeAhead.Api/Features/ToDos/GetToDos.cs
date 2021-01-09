@@ -10,12 +10,9 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
 {
     public class GetToDos
     {
-        public class Request : IRequest<Response> {  }
+        public record Request : IRequest<Response>;
 
-        public class Response
-        {
-            public List<ToDoDto> ToDos { get; set; }
-        }
+        public record Response(List<ToDoDto> ToDos);
 
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -23,11 +20,8 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
 
             public Handler(IAspNetAngularTypeAheadDbContext context) => _context = context;
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-			    return new Response() { 
-                    ToDos = await _context.ToDos.Select(x => x.ToDto()).ToListAsync()
-                };
-            }
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+                => new (await _context.ToDos.Select(x => x.ToDto()).ToListAsync());
         }
     }
 }

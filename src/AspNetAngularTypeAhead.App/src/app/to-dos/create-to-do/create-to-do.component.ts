@@ -1,4 +1,6 @@
+import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
+import { ToDosService } from '../to-dos.service';
 
 @Component({
   selector: 'app-create-to-do',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateToDoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toDosService: ToDosService, private overlayRef: OverlayRef) { }
 
   ngOnInit(): void {
+
   }
 
 }

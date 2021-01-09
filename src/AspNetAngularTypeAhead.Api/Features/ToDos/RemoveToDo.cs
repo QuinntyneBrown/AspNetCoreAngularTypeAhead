@@ -8,9 +8,7 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
 {
     public class RemoveToDo
     {
-        public class Request : IRequest<Unit> {  
-            public Guid ToDoId { get; set; }        
-        }
+        public record Request (Guid ToDoId): IRequest<Unit>;
 
         public class Handler : IRequestHandler<Request, Unit>
         {
@@ -24,7 +22,7 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
                 
                 await _context.SaveChangesAsync(cancellationToken);			    
                 
-                return new Unit();
+                return new ();
             }
         }
     }

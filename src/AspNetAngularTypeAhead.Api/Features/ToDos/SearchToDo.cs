@@ -1,7 +1,6 @@
 using AspNetAngularTypeAhead.Api.Data;
 using MediatR;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,14 +8,9 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
 {
     public class SearchToDo
     {
-        public class Request : IRequest<Response> {
-            public string Query { get; set; }
-        }
+        public record Request (string Query) : IRequest<Response>;
 
-        public class Response
-        {
-            public List<ToDoDto> ToDos { get; set; }
-        }
+        public record Response(List<ToDoDto> ToDos);
 
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -28,7 +22,7 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
-                return new();
+                return new(default);
             }
         }
     }

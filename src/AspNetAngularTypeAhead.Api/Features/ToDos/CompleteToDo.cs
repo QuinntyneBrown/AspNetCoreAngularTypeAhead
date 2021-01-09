@@ -1,7 +1,7 @@
 using AspNetAngularTypeAhead.Api.Data;
-using AspNetAngularTypeAhead.Api.Models;
 using FluentValidation;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,19 +13,14 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
         {
             public Validator()
             {
-                RuleFor(request => request.ToDo).NotNull();
-                RuleFor(request => request.ToDo).SetValidator(new ToDoValidator());
+                RuleFor(request => request.ToDoId).NotNull();
+                RuleFor(request => request.ToDoId).NotEqual(new Guid());
             }
         }
 
-        public class Request : IRequest<Response> {  
-            public ToDoDto ToDo { get; set; }
-        }
+        public record Request(Guid ToDoId) : IRequest<Response>;
 
-        public class Response
-        {
-            public ToDoDto ToDo { get; set; }
-        }
+        public record Response(ToDoDto ToDo);
 
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -35,15 +30,13 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
-                var toDo = await _context.ToDos.FindAsync(request.ToDo.ToDoId);
+                var toDo = await _context.ToDos.FindAsync(request.ToDoId);
 
                 toDo.Complete();
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-			    return new Response() { 
-                    ToDo = toDo.ToDto()
-                };
+                return new(toDo.ToDto());
             }
         }
     }

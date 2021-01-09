@@ -18,14 +18,9 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
             }
         }
 
-        public class Request : IRequest<Response> {  
-            public ToDoDto ToDo { get; set; }
-        }
+        public record Request(ToDoDto ToDo): IRequest<Response>;
 
-        public class Response
-        {
-            public ToDoDto ToDo { get; set; }
-        }
+        public record Response(ToDoDto ToDo);
 
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -41,9 +36,7 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-			    return new () { 
-                    ToDo = toDo.ToDto()
-                };
+                return new(toDo.ToDto());
             }
         }
     }

@@ -1,6 +1,6 @@
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { DialogService } from '@shared/dialog.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { CompleteToDoComponent } from '../complete-to-do/complete-to-do.component';
@@ -15,15 +15,17 @@ import { ToDosService } from '../to-dos.service';
 })
 export class ToDoListComponent implements OnInit, OnDestroy {
 
-  constructor(private _toDosService: ToDosService, private _overlay: Overlay) { }
-
-  private _destroyed: Subject<void> = new Subject();
+  private readonly _destroyed: Subject<void> = new Subject();
 
   public toDos$: BehaviorSubject<ToDo[]> = new BehaviorSubject([] as ToDo[]);
+
+  dataSource: MatTableDataSource<ToDo> = new MatTableDataSource([] as ToDo[]);
 
   public displayedColumns:string[] = [
     "title"
   ];
+
+  constructor(private _toDosService: ToDosService, private _dialogService: DialogService) { }
 
   ngOnInit(): void {
     this._toDosService.get()
@@ -33,35 +35,18 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     ).subscribe();
   }
 
-  dataSource:ToDo[] = [];
-  
+  public create() {
+    this._dialogService.open<CreateToDoComponent>(CreateToDoComponent);
+  }
 
+  public complete() {
+    this._dialogService.open<CompleteToDoComponent>(CompleteToDoComponent);
+  }
+  
   ngOnDestroy(): void {
     this._destroyed.next();
     this._destroyed.complete();
   }
 
-  public create() {
-    this.attach<CreateToDoComponent>(new ComponentPortal(CreateToDoComponent));
-  }
 
-  public complete() {
-    this.attach<CompleteToDoComponent>(new ComponentPortal(CompleteToDoComponent));
-  }
-
-  private attach<T>(componentPortal: ComponentPortal<T>): OverlayRef {
-    const positionStrategy = this._overlay.position()
-    .global()
-    .centerHorizontally()
-    .centerVertically();
-
-    const overlayRef = this._overlay.create({
-      hasBackdrop: true,
-      positionStrategy
-    });
-
-    overlayRef.attach(componentPortal);
-
-    return overlayRef;
-  }
 }

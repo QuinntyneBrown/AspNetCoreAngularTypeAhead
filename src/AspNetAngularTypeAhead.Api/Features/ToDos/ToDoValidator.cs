@@ -6,7 +6,7 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
     {
         public ToDoValidator()
         {
-            
+            RuleFor(x => x.Title).NotNull().NotEmpty();
         }
     }
 }
