@@ -37,7 +37,7 @@ export class ToDosService {
     return this._client.post<{ id: number }>(`${this._baseUrl}api/toDos`, { toDo: options.toDo });
   }  
 
-  public complete(options: { toDo: ToDo }): Observable<{ id: number }> {
-    return this._client.put<{ id: number }>(`${this._baseUrl}api/toDos`, { toDo: options.toDo });
+  public complete(options: { toDoId?: string }): Observable<{ id: number }> {
+    return this._client.put<{ id: number }>(`${this._baseUrl}api/toDos`, { toDoId: options.toDoId });
   }  
 }

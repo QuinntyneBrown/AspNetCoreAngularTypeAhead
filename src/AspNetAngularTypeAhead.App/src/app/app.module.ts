@@ -22,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   providers: [
-    { provide: baseUrl, useValue: "https://localhost:5001/"}
+    { provide: baseUrl, useValue: "https://localhost:44382/"}
   ],
   bootstrap: [AppComponent]
 })

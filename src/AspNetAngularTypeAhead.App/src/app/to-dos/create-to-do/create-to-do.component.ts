@@ -15,6 +15,8 @@ export class CreateToDoComponent implements OnDestroy {
 
   private readonly _destroyed: Subject<void> = new Subject();
 
+  public get destroyed(): Subject<void> { return this._destroyed; }
+
   @Output() public saved: EventEmitter<ToDo> = new EventEmitter();
 
   public form = new FormGroup({
