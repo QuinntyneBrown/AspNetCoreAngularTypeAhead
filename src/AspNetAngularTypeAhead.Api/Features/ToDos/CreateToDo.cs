@@ -32,7 +32,7 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
 
                 var toDo = new ToDo(request.ToDo.Title, request.ToDo.Description);
 
-                await _context.ToDos.AddAsync(toDo);
+                _context.Add(toDo);
 
                 await _context.SaveChangesAsync(cancellationToken);
 

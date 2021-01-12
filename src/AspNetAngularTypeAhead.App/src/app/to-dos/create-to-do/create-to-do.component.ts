@@ -1,5 +1,5 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -9,7 +9,8 @@ import { ToDosService } from '../to-dos.service';
 @Component({
   selector: 'app-create-to-do',
   templateUrl: './create-to-do.component.html',
-  styleUrls: ['./create-to-do.component.scss']
+  styleUrls: ['./create-to-do.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateToDoComponent implements OnDestroy {
 

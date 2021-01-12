@@ -1,4 +1,5 @@
 using AspNetAngularTypeAhead.Api.Data;
+using AspNetAngularTypeAhead.Api.Models;
 using FluentValidation;
 using MediatR;
 using System;
@@ -30,7 +31,7 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
-                var toDo = await _context.ToDos.FindAsync(request.ToDoId);
+                var toDo = await _context.FindAsync<ToDo>(request.ToDoId);
 
                 toDo.Complete();
 

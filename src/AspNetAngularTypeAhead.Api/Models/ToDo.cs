@@ -9,7 +9,7 @@ namespace AspNetAngularTypeAhead.Api.Models
         public string Description { get; init; }
         public DateTime? Completed { get; private set; }
         public DateTime Created { get; init; } = DateTime.UtcNow;
-
+        public DateTime Deleted { get; set; }
         public ToDo(string title, string description)
         {
             Title = title;
@@ -18,6 +18,11 @@ namespace AspNetAngularTypeAhead.Api.Models
         public void Complete()
         {
             Completed = DateTime.UtcNow;
+        }
+
+        public void Remove()
+        {
+            Deleted = DateTime.UtcNow;
         }
     }
 }

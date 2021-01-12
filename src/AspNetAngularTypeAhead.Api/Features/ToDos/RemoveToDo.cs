@@ -1,4 +1,5 @@
 using AspNetAngularTypeAhead.Api.Data;
+using AspNetAngularTypeAhead.Api.Models;
 using MediatR;
 using System;
 using System.Threading;
@@ -17,8 +18,10 @@ namespace AspNetAngularTypeAhead.Api.Features.ToDos
             public Handler(IAspNetAngularTypeAheadDbContext context) => _context = context;
 
             public async Task<Unit> Handle(Request request, CancellationToken cancellationToken) {
-                
-                _context.ToDos.Remove(await _context.ToDos.FindAsync(request.ToDoId));
+
+                var toDo = await _context.FindAsync<ToDo>(request.ToDoId);
+
+                toDo.Remove();
                 
                 await _context.SaveChangesAsync(cancellationToken);			    
                 

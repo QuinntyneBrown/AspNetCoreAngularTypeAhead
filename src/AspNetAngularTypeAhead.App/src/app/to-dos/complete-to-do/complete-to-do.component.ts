@@ -1,5 +1,5 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ToDosService } from '../to-dos.service';
@@ -7,7 +7,8 @@ import { ToDosService } from '../to-dos.service';
 @Component({
   selector: 'app-complete-to-do',
   templateUrl: './complete-to-do.component.html',
-  styleUrls: ['./complete-to-do.component.scss']
+  styleUrls: ['./complete-to-do.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CompleteToDoComponent implements OnInit, OnDestroy {
 
@@ -35,5 +36,4 @@ export class CompleteToDoComponent implements OnInit, OnDestroy {
     this._destoyed.next();
     this._destoyed.complete();
   }
-
 }
